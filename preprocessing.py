@@ -2,7 +2,7 @@ import csv
 import numpy
 from sklearn.feature_extraction import DictVectorizer
 
-def preprocessing(infile, outfile):
+def preprocessing(infile, outfile=""):
     with open(infile, 'rb') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         raw_data = dict()
@@ -73,11 +73,12 @@ def preprocessing(infile, outfile):
         # Y -> same as above
         raw_data['Y'] = map(float, raw_data['Y'])
     
-        with open(outfile, 'wb') as f:
-            writer = csv.writer(f)
-            writer.writerow(raw_data.keys())
-            for row in zip(*list(raw_data.values())):
-                writer.writerow(row)
+        if outfile:
+            with open(outfile, 'wb') as f:
+                writer = csv.writer(f)
+                writer.writerow(raw_data.keys())
+                for row in zip(*list(raw_data.values())):
+                    writer.writerow(row)
             
 def main():
     preprocessing('train.csv', 'new_train.csv')
