@@ -44,7 +44,12 @@ def preprocessing(infile, outfile=""):
                 raw_data[dvec.get_feature_names()[i]].append(val)
     
         # Category -> label them from 0-38
-    
+        new_category = dvec.fit_transform(map(lambda x: dict(Category=x), raw_data['Category']))
+        for new_attr in dvec.get_feature_names():
+            raw_data[new_attr] = []
+        for data in new_category:
+            for i, val in enumerate(data):
+                raw_data[dvec.get_feature_names()[i]].append(val)
         # Descript -> ???
     
         # DayOfWeek -> Convert to 7 binary features (Monday, ..., Sunday)
