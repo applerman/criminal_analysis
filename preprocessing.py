@@ -1,6 +1,8 @@
 import csv
 import numpy
+import string
 from sklearn.feature_extraction import DictVectorizer
+from collections import Counter
 
 def preprocessing(infile, outfile=""):
     with open(infile, 'rb') as csvfile:
@@ -50,7 +52,6 @@ def preprocessing(infile, outfile=""):
         for data in new_category:
             for i, val in enumerate(data):
                 raw_data[dvec.get_feature_names()[i]].append(val)
-        # Descript -> ???
     
         # DayOfWeek -> Convert to 7 binary features (Monday, ..., Sunday)
         new_dayofweek = dvec.fit_transform(map(lambda x: dict(DayOfWeek=x), raw_data['DayOfWeek']))
@@ -67,6 +68,20 @@ def preprocessing(infile, outfile=""):
         for data in new_pddistrict:
             for i, val in enumerate(data):
                 raw_data[dvec.get_feature_names()[i]].append(val)
+                
+        #Description
+        raw_data['Description']=[]
+        allTags = ""
+        counts = {}
+        for description in raw_data['Descript']:
+            ts = description.replace('/',' ').split(' ') #ignores punctuation and splits woreds
+            excl = ["AND","TO","FROM","WITH","A","OF","ON","TO","OR","OTHER","AN","THE" ]
+            nd = ' '.join([t for t in ts if not t in excl])
+            nd2 = nd.translate(string.maketrans("",""), string.punctuation)
+            raw_data['Description'].append(nd2)
+            allTags+=nd2
+            allTags+=" "
+        freq = Counter(allTags.split()).most_common(10)
     
         # Resolution -> ???
     
