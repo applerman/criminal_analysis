@@ -4,6 +4,8 @@ import string
 from sklearn.feature_extraction import DictVectorizer
 from collections import Counter
 
+from sfopendata import calculateMinDistanceFromPdDistricts
+
 def preprocessing(infile, outfile=""):
     with open(infile, 'rb') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -69,7 +71,7 @@ def preprocessing(infile, outfile=""):
             for i, val in enumerate(data):
                 raw_data[dvec.get_feature_names()[i]].append(val)
                 
-        #Description
+        # Description
         raw_data['Description']=[]
         allTags = ""
         counts = {}
@@ -92,6 +94,9 @@ def preprocessing(infile, outfile=""):
     
         # Y -> same as above
         raw_data['Y'] = map(float, raw_data['Y'])
+
+        # MinDistanceFromPdDistrict
+        raw_data['MinDistanceFromPdDistrict'] = calculateMinDistanceFromPdDistricts(zip(raw_data['Y'], raw_data['X']))  
     
         if outfile:
             with open(outfile, 'wb') as f:
