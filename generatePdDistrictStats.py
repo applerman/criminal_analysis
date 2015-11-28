@@ -73,7 +73,7 @@ def predictTestWithPdDistrictStats(testFilename, PdDistrictStatsFilename, predic
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for (i,row) in enumerate(spamreader):
             for (j, attr) in enumerate(row):
-                statMatrix[i][j] = attr
+                statMatrix[i][j] = int((float(attr) * 100) + 0.5) / 100.0
 
     with open(testFilename, 'rb') as csvfile:
         # Read CSV
