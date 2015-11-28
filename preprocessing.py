@@ -5,6 +5,7 @@ from sklearn.feature_extraction import DictVectorizer
 from collections import Counter
 
 from sfopendata import calculateMinDistanceFromPdDistricts
+from sfo_recreation import calculateMinDistanceFromRecreation
 
 def preprocessing(infile, outfile=""):
     with open(infile, 'rb') as csvfile:
@@ -54,7 +55,7 @@ def preprocessing(infile, outfile=""):
         for data in new_category:
             for i, val in enumerate(data):
                 raw_data[dvec.get_feature_names()[i]].append(val)
-    
+
         # DayOfWeek -> Convert to 7 binary features (Monday, ..., Sunday)
         new_dayofweek = dvec.fit_transform(map(lambda x: dict(DayOfWeek=x), raw_data['DayOfWeek']))
         for new_attr in dvec.get_feature_names():
@@ -62,7 +63,7 @@ def preprocessing(infile, outfile=""):
         for data in new_dayofweek:
             for i, val in enumerate(data):
                 raw_data[dvec.get_feature_names()[i]].append(val)
-    
+
         # PdDistrict -> Convert to # binary features
         new_pddistrict = dvec.fit_transform(map(lambda x: dict(PdDistrict=x), raw_data['PdDistrict']))
         for new_attr in dvec.get_feature_names():
@@ -70,7 +71,7 @@ def preprocessing(infile, outfile=""):
         for data in new_pddistrict:
             for i, val in enumerate(data):
                 raw_data[dvec.get_feature_names()[i]].append(val)
-                
+
         # Description
         raw_data['Description']=[]
         allTags = ""
@@ -84,20 +85,23 @@ def preprocessing(infile, outfile=""):
             allTags+=nd2
             allTags+=" "
         freq = Counter(allTags.split()).most_common(10)
-    
+
         # Resolution -> ???
-    
+
         # Address -> ???
-    
+
         # X -> will use raw data, as well as features incorporated from SF OpenData
         raw_data['X'] = map(float, raw_data['X'])
-    
+
         # Y -> same as above
         raw_data['Y'] = map(float, raw_data['Y'])
 
         # MinDistanceFromPdDistrict
-        raw_data['MinDistanceFromPdDistrict'] = calculateMinDistanceFromPdDistricts(zip(raw_data['Y'], raw_data['X']))  
-    
+        raw_data['MinDistanceFromPdDistrict'] = calculateMinDistanceFromPdDistricts(zip(raw_data['Y'], raw_data['X']))
+
+        # MinDistanceOfRecreation
+        raw_data['MinDistanceOfRecreation'] = calculateMinDistanceFromRecreation(zip(raw_data['Y'], raw_data['X']))
+
         if outfile:
             with open(outfile, 'wb') as f:
                 writer = csv.writer(f)
@@ -106,7 +110,7 @@ def preprocessing(infile, outfile=""):
                     writer.writerow(row)
             
 def main():
-    preprocessing('train.csv', 'new_train.csv')
+    preprocessing('train100.csv', 'new_train.csv')
 
 if __name__ == "__main__":
     # execute only if run as a script
