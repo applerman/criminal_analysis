@@ -18,10 +18,9 @@ def main():
 
   # normalized to [0,1] by Henry
   dec = asarray([[(i - min(j)) / (max(j) - min(j)) for i in j] for j in dec])
-
   
-  ind = [i for i in xrange(1,len(dec)+1)]
-  dec = insert(dec, 0, ind, axis=1)
+  #ind = [i for i in xrange(1,len(dec)+1)] by Henry
+  dec = insert(dec, 0, range(len(dec)), axis=1)
 
   savetxt("predict_NaiveBayes.csv", dec, delimiter=",", header=header, fmt=fmt, comments="")
 if __name__ == "__main__":

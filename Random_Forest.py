@@ -23,8 +23,8 @@ def main():
   # normalized to [0,1] by Henry
   dec = asarray([[(i - min(j)) / (max(j) - min(j)) for i in j] for j in dec])
 
-  ind = [i for i in xrange(0,len(dec))]
-  dec = insert(dec, 0, ind, axis=1)
+  #ind = [i for i in xrange(0,len(dec))] by Henry
+  dec = insert(dec, 0, range(len(dec)), axis=1)
 
   savetxt("predict_Random_Forest.csv", dec, delimiter=",", header=header, fmt=fmt, comments="")
 
