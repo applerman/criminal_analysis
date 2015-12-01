@@ -5,8 +5,8 @@ from numpy import insert
 
 def main():
 
-  trainFeature = genfromtxt('trainFeature.csv', delimiter=',')   
-  trainLabel = genfromtxt('trainLabel.csv', delimiter='\n')   
+  trainFeature = genfromtxt('trainFeature.csv', delimiter=',')[0::5]
+  trainLabel = genfromtxt('trainLabel.csv', delimiter='\n')[0::5]
   testFeature = genfromtxt('testFeature.csv', delimiter=',')   
 
   clf = svm.SVC(decision_function_shape='ovr')
