@@ -119,7 +119,7 @@ def preprocessing(infile, outfile=""):
             
 def main():
     preprocessing('train.csv', 'trainFeature.csv')
-    preprocessing('test.csv', 'testFeature.csv')
+    # preprocessing('test.csv', 'testFeature.csv')
 
 if __name__ == "__main__":
     # execute only if run as a script
