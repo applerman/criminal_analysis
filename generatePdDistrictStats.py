@@ -21,9 +21,9 @@ def generatePdDistrictStats(infile, outfile):
         districtsDict = {}
         labelsDict = {}
         for (i, attr) in enumerate(districts):
-            districtsDict[attr] = i;
+            districtsDict[attr] = i
         for (i, attr) in enumerate(labels):
-            labelsDict[attr] = i;
+            labelsDict[attr] = i
 
         # Declare arrays
         statMatrix = [[0.0 for x in range(len(labels))] for x in range(len(districts))] # Each row is the statistics for the district
@@ -61,9 +61,9 @@ def predictTestWithPdDistrictStats(testFilename, PdDistrictStatsFilename, predic
     districtsDict = {}
     labelsDict = {}
     for (i, attr) in enumerate(districts):
-        districtsDict[attr] = i;
+        districtsDict[attr] = i
     for (i, attr) in enumerate(labels):
-        labelsDict[attr] = i;
+        labelsDict[attr] = i
 
     # Declare arrays
     statMatrix = [[0.0 for x in range(len(labels))] for x in range(len(districts))]
@@ -100,6 +100,7 @@ def predictTestWithPdDistrictStats(testFilename, PdDistrictStatsFilename, predic
                         if attr_names[i] == 'PdDistrict':
                             indexPd = districtsDict[attr]
                             writer.writerow([currId] + statMatrix[indexPd])
+
 
 def main():
     generatePdDistrictStats('train.csv', 'PdDistrictStats.csv')
