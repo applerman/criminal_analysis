@@ -104,11 +104,10 @@ def preprocessing(infile, outfile=""):
         # MinDistanceOfRecreation
         raw_data['MinDistanceOfRecreation'] = calculateMinDistanceFromRecreation(zip(raw_data['Y'], raw_data['X']))
 
-        # MinDistanceOfWireless
-        raw_data['MinDistanceOfWireless'] = calculateMinDistanceFromWireless(zip(raw_data['Y'], raw_data['X']))
-
-        # MinDistanceOfFood
-        raw_data['MinDistanceOfFodd'] = calculateMinDistanceFromFood(zip(raw_data['Y'], raw_data['X']))
+        # # MinDistanceOfWireless
+        # raw_data['MinDistanceOfWireless'] = calculateMinDistanceFromWireless(zip(raw_data['Y'], raw_data['X']))
+        # # MinDistanceOfFood
+        # raw_data['MinDistanceOfFodd'] = calculateMinDistanceFromFood(zip(raw_data['Y'], raw_data['X']))
 
         if outfile:
             with open(outfile, 'wb') as f:
@@ -118,7 +117,7 @@ def preprocessing(infile, outfile=""):
                     writer.writerow(row)
             
 def main():
-    preprocessing('train.csv', 'trainFeature.csv')
+    preprocessing('train.csv', 'new_train.csv')
     # preprocessing('test.csv', 'testFeature.csv')
 
 if __name__ == "__main__":
