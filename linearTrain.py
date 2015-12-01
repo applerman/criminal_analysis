@@ -5,13 +5,9 @@ from numpy import insert
 
 def main():
 
-  #trainFeature = genfromtxt('trainFeature.csv', delimiter=',')[0::5]
-  #trainLabel = genfromtxt('trainLabel.csv', delimiter='\n')[0::5]
-  #testFeature = genfromtxt('testFeature.csv', delimiter=',')   
-
-  trainFeature = genfromtxt('mytrain.csv', delimiter=',')[0::5]
-  trainLabel = genfromtxt('mylabel.csv', delimiter='\n')[0::5]
-  testFeature = genfromtxt('mytest.csv', delimiter=',')   
+  trainFeature = genfromtxt('trainFeature.csv', delimiter=',')[0::5]
+  trainLabel = genfromtxt('trainLabel.csv', delimiter='\n')[0::5]
+  testFeature = genfromtxt('testFeature.csv', delimiter=',')   
 
   lin_clf = svm.LinearSVC()
   lin_clf.fit(trainFeature, trainLabel)
