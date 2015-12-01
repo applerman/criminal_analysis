@@ -24,7 +24,8 @@ def main():
 
   fmt=['%d'] + ['%1.3f'] * dec.shape[1]
 
-  ind = [i for i in xrange(1,len(dec)+1)]
+  ind = [i for i in xrange(0,len(dec))]
+  #dec = asarray([[(i - mm) for i in j] for j in dec])
   dec = insert(dec, 0, ind, axis=1)
 
   savetxt("predict.csv", dec, delimiter=",", header=header, fmt=fmt, comments="")
