@@ -6,6 +6,8 @@ from collections import Counter
 
 from sfopendata import calculateMinDistanceFromPdDistricts
 from sfo_recreation import calculateMinDistanceFromRecreation
+from sfo_wireless import calculateMinDistanceFromWireless
+from sfo_food import calculateMinDistanceFromFood
 
 def preprocessing(infile, outfile=""):
     with open(infile, 'rb') as csvfile:
@@ -102,6 +104,12 @@ def preprocessing(infile, outfile=""):
         # MinDistanceOfRecreation
         raw_data['MinDistanceOfRecreation'] = calculateMinDistanceFromRecreation(zip(raw_data['Y'], raw_data['X']))
 
+        # MinDistanceOfWireless
+        raw_data['MinDistanceOfWireless'] = calculateMinDistanceFromWireless(zip(raw_data['Y'], raw_data['X']))
+
+        # MinDistanceOfFood
+        raw_data['MinDistanceOfFodd'] = calculateMinDistanceFromFood(zip(raw_data['Y'], raw_data['X']))
+
         if outfile:
             with open(outfile, 'wb') as f:
                 writer = csv.writer(f)
@@ -110,7 +118,8 @@ def preprocessing(infile, outfile=""):
                     writer.writerow(row)
             
 def main():
-    preprocessing('train100.csv', 'new_train.csv')
+    preprocessing('train.csv', 'trainFeature.csv')
+    preprocessing('test.csv', 'testFeature.csv')
 
 if __name__ == "__main__":
     # execute only if run as a script
