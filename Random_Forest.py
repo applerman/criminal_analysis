@@ -20,6 +20,9 @@ def main():
 
   fmt=['%d'] + ['%1.4f'] * dec.shape[1]
 
+  # normalized to [0,1] by Henry
+  dec = asarray([[(i - min(j)) / (max(j) - min(j)) for i in j] for j in dec])
+
   ind = [i for i in xrange(0,len(dec))]
   dec = insert(dec, 0, ind, axis=1)
 
