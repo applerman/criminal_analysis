@@ -6,9 +6,9 @@ import numpy as np
 
 def main():
 
-  trainFeature = genfromtxt('trainFeature.csv', delimiter=',')[0::5]
-  trainLabel = genfromtxt('trainLabel.csv', delimiter='\n')[0::5]
-  testFeature = genfromtxt('testFeature.csv', delimiter=',')   
+  trainFeature = np.genfromtxt('trainFeature.csv', delimiter=',')[0::5]
+  trainLabel = np.genfromtxt('trainLabel.csv', delimiter='\n')[0::5]
+  testFeature = np.genfromtxt('testFeature.csv', delimiter=',')
 
   #trainFeature = np.genfromtxt('mytrain.csv', delimiter=',')
   #trainLabel = np.genfromtxt('mylabel.csv', delimiter='\n')
