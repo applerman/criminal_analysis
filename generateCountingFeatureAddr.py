@@ -107,10 +107,14 @@ def predictTestWithCountingFeatureAddr(testFilename, predictFilename):
 
                         if attr_names[index] == 'Address':
                             if attribute in addrFeature:
-                                writer.writerow([currId] + addrFeature[attribute])
+                                featureToWrite = addrFeature[attribute]
+                                featureToWrite[:] = [int((float(x) * 10000) + 0.5) / 10000.0 for x in featureToWrite]
+                                writer.writerow([currId] + featureToWrite)
                             else:
                                 addrFeature[attribute] = deepcopy(defaultFeature)
-                                writer.writerow([currId] + defaultFeature)
+                                featureToWrite = addrFeature[attribute]
+                                featureToWrite[:] = [int((float(x) * 10000) + 0.5) / 10000.0 for x in featureToWrite]
+                                writer.writerow([currId] + featureToWrite)
 
 
 def generateFeatureFileForTest(testFilename, featureFilename):
