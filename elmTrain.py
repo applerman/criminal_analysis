@@ -1,3 +1,6 @@
+# install package elm
+# pip install elm
+
 import elm
 import numpy as np
 
