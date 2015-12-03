@@ -21,7 +21,8 @@ def main():
     # byPdDistrict(trainDF)
     # byCategoryThenPdDistrict(trainDF)
     # byDayOfWeek(trainDF)
-    byCategoryThenDayOfWeek(trainDF)
+    # byCategoryThenDayOfWeek(trainDF)
+    byAddresstThenCategory(trainDF)
 
 def byRaw(trainDF):
     plt.plot(trainDF["X"],trainDF["Y"],'.')
@@ -85,6 +86,18 @@ def byCategoryThenDayOfWeek(trainDF):
             plt.title(nameC, fontsize=30)
             ii+=1
     plt.show()
+
+
+def byAddressThenCategory(trainDF):
+    groupsA = trainDF.groupby('Address')
+    groupA = groupsA[0]
+    counts = groupA.Category.value_counts().to_dict()
+    ax.bar(map(lambda x:key_daysofweek.index(x), key_daysofweek), counts_values)
+    ax.bar(counts.keys(), counts.values())
+    ax.set_xticks(map(lambda x:counts.keys().index(x), counts.keys()))
+    ax.set_xticklabels(map(lambda x: x[0], counts.keys()))
+    plt.title(groupA[0], fontsize=30)
+    
 
     
 if __name__ == "__main__":
